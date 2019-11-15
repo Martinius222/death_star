@@ -1,4 +1,4 @@
-package no.kristiania.deathStart;
+package no.kristiania.deathStart.Http;
 
 
 import no.kristiania.HTTP.HttpClient;

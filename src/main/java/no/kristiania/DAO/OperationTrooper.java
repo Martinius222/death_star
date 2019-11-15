@@ -51,10 +51,10 @@ public class OperationTrooper {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        OperationTrooper member = (OperationTrooper) o;
-        return id == member.id &&
-                Objects.equals(name, member.name) &&
-                Objects.equals(email, member.email);
+        OperationTrooper trooper = (OperationTrooper) o;
+        return id == trooper.id &&
+                Objects.equals(name, trooper.name) &&
+                Objects.equals(email, trooper.email);
     }
 
     @Override

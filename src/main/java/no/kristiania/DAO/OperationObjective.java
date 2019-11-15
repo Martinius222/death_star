@@ -2,15 +2,14 @@ package no.kristiania.DAO;
 
 import java.util.Objects;
 
-public class Operation {
-
+public class OperationObjective {
     private String name;
     private String description;
     private long id;
 
-    public Operation (){}
+    public OperationObjective (){}
 
-    public Operation(String name, String description, Integer id) {
+    public OperationObjective(String name, String description, Integer id) {
         this.name = name;
         this.description = description;
         this.id = id;
@@ -23,7 +22,7 @@ public class Operation {
     public long getId() {
         return id;
     }
-    
+
     public String getDescription() {
         return description;
     }
@@ -31,7 +30,7 @@ public class Operation {
     public void setName(String name) {
         this.name = name;
     }
-    
+
     public void setDescription(String description) {
         this.description = description;
     }
@@ -44,9 +43,9 @@ public class Operation {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Operation operation = (Operation) o;
-        return id == operation.id &&
-                Objects.equals(name, operation.name);
+        OperationObjective operationObjective = (OperationObjective) o;
+        return id == operationObjective.id &&
+                Objects.equals(name, operationObjective.name);
     }
 
     @Override
@@ -56,10 +55,10 @@ public class Operation {
 
     @Override
     public String toString() {
-        return "Operation{" +
-                "Operation Name='" + name + '\'' +
-                "Operation Description='" + description + '\'' +
-                "Operation ID=" + id +
+        return "OperationObjective{" +
+                "OperationObjective Name='" + name + '\'' +
+                "OperationObjective Description='" + description + '\'' +
+                "OperationObjective ID=" + id +
                 '}';
     }
 }

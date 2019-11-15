@@ -1,4 +1,4 @@
-package no.kristiania.deathStart;
+package no.kristiania.deathStart.Dao;
 
 import no.kristiania.DAO.Operation;
 import org.flywaydb.core.Flyway;
