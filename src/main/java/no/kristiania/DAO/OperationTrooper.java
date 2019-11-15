@@ -7,7 +7,7 @@ public class OperationTrooper {
 
     private long id;
     private String name;
-    private String mail;
+    private String email;
 
     public long getId() {
         return id;
@@ -26,12 +26,12 @@ public class OperationTrooper {
         this.name = name;
     }
 
-    public String getMail() {
-        return mail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 
@@ -40,9 +40,9 @@ public class OperationTrooper {
 
     }
 
-    public OperationTrooper(String name, String mail) {
+    public OperationTrooper(String name, String email) {
         this.name = name;
-        this.mail = mail;
+        this.email = email;
 
     }
 
@@ -54,12 +54,12 @@ public class OperationTrooper {
         OperationTrooper member = (OperationTrooper) o;
         return id == member.id &&
                 Objects.equals(name, member.name) &&
-                Objects.equals(mail, member.mail);
+                Objects.equals(email, member.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, mail);
+        return Objects.hash(id, name, email);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class OperationTrooper {
         return "OperationTrooper{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", mail='" + mail + '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
 }

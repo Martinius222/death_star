@@ -28,7 +28,7 @@ public class OperationTrooperHttpController implements HttpController {
                 requestParameters = HttpServer.parseRequestParameters(requestBody);
                 OperationTrooper trooper = new OperationTrooper();
                 trooper.setName(requestParameters.get("memberName"));
-                trooper.setMail(requestParameters.get("mail"));
+                trooper.setEmail(requestParameters.get("mail"));
                 TrooperDao.insert(trooper);
                 return;
             }

@@ -21,7 +21,7 @@ public class OperationTrooperDao extends AbstractDao<OperationTrooper> {
     @Override
     protected void insertMember(OperationTrooper member, PreparedStatement statement) throws SQLException {
         statement.setString(1, member.getName());
-        statement.setString(2, member.getMail());
+        statement.setString(2, member.getEmail());
 
     }
 
@@ -31,7 +31,7 @@ public class OperationTrooperDao extends AbstractDao<OperationTrooper> {
 
         member.setId(resultSet.getInt(1));
         member.setName(resultSet.getString(2));
-        member.setMail(resultSet.getString(3));
+        member.setEmail(resultSet.getString(3));
         return member;
     }
 
