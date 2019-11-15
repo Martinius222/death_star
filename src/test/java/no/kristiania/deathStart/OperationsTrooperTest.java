@@ -1,4 +1,4 @@
-package no.kristiania.deathStart.Dao;
+package no.kristiania.deathStart;
 
 import no.kristiania.DAO.OperationTrooper;
 import no.kristiania.DAO.OperationTrooperDao;
@@ -14,7 +14,7 @@ import java.util.Random;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
-public class OperationTrooperTest {
+class OperationTrooperTest {
 
     private JdbcDataSource dataSource;
 
