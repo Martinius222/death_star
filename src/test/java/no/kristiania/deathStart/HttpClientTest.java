@@ -1,5 +1,7 @@
 package no.kristiania.deathStart;
 
+import no.kristiania.HTTP.HttpClient;
+import no.kristiania.HTTP.HttpClientResponse;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

@@ -1,5 +1,5 @@
 
-package no.kristiania.deathStart;
+package no.kristiania.HTTP;
 
 import java.io.IOException;
 import java.net.Socket;

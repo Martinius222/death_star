@@ -1,4 +1,4 @@
-package no.kristiania.deathStart;
+package no.kristiania.HTTP;
 
 import org.flywaydb.core.Flyway;
 import org.postgresql.ds.PGSimpleDataSource;

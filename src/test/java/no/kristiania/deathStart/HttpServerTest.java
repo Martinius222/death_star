@@ -1,6 +1,9 @@
 package no.kristiania.deathStart;
 
 
+import no.kristiania.HTTP.HttpClient;
+import no.kristiania.HTTP.HttpClientResponse;
+import no.kristiania.HTTP.HttpServer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;
@@ -51,7 +54,7 @@ public class HttpServerTest {
     void shouldReturnFileFromDisk() throws IOException {
         Files.writeString(Paths.get("target/testText.txt"), "This is the actual content of the awesome test text file!");
         server.setFileLocation("target");
-        HttpClient httpClient = new HttpClient("localhost", server.getPort(), "/testText.txt");
+        HttpClient httpClient = new HttpClient("localhost", server.getPort(), "/website/testText.txt");
         HttpClientResponse response = httpClient.executeRequest();
         assertEquals("This is the actual content of the awesome test text file!", response.getBody());
 
