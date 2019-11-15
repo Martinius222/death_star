@@ -2,6 +2,7 @@ package no.kristiania.HTTP;
 
 import no.kristiania.DAO.OperationTrooperDao;
 import no.kristiania.DAO.OperationTrooperHttpController;
+import org.flywaydb.core.Flyway;
 import org.postgresql.ds.PGSimpleDataSource;
 
 import java.io.FileReader;
@@ -21,9 +22,11 @@ public class ManagerServer {
         dataSource.setUser(properties.getProperty("dataSource.username"));
         dataSource.setPassword(properties.getProperty("dataSource.password"));
 
+        Flyway.configure().dataSource(dataSource).load().migrate();
+
 
         HttpServer server = new HttpServer(8080);
-        server.setFileLocation("src/main/resources/operationmanager");
+        server.setFileLocation("src/main/resources/website");
         server.addController("/api/operationTroopers", new OperationTrooperHttpController(new OperationTrooperDao(dataSource)));
 
         server.start();

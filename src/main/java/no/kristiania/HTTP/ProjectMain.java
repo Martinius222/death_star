@@ -17,7 +17,7 @@ public class ProjectMain {
     public static void main(String[] args) throws IOException, SQLException {
 
         Properties properties = new Properties();
-        properties.load(new FileReader("deathstar.properties"));
+        properties.load(new FileReader("task-manager.properties"));
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
         dataSource.setUrl((properties.getProperty("dataSource.url")));
         dataSource.setUser((properties.getProperty("dataSource.username")));
