@@ -27,7 +27,21 @@
     <div>
         <a href=".">Return to front page</a>
     </div>
+    <p><u>List of operation members</u></p>
+    <table id="operationMembers">
+
+    </table>
     <iframe src="JoinMe.mp3" frameborder="0" allow="autoplay"></iframe>
+
+    <script>
+        fetch("/api/troopers")
+            .then(function (response) {
+                return response.text();
+            }).then(function (text) {
+                text = "<tr> <th>Navn</th> <th>Email</th> </tr>" + text
+            document.getElementById("operationMembers").innerHTML = text;
+        });
+    </script>
 
 </body>
 
