@@ -3,35 +3,55 @@ package no.kristiania.HTTP;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class HttpClient {
-    private String host;
-    private int port;
-    private String requestTarget;
 
-    public HttpClient(String host, int port, String requestTarget) {
-        this.host = host;
+    private final String hostname;
+    private final int port;
+    private final String requestTarget;
+    private String body;
+    private Map<String, String> headers = new HashMap<>();
+
+    public HttpClient(String hostname, int port, String requestTarget) {
+
+        this.hostname = hostname;
         this.port = port;
         this.requestTarget = requestTarget;
+        setRequestHeader("Host", hostname);
+        setRequestHeader("Connection", "close");
     }
 
-    public static void main(String[] args) throws IOException {
-        new HttpClient("urlecho.appspot.com", 80, "/echo?body=Houston%20we%20have%20a%20connection").executeRequest();
-    }
 
-    public HttpClientResponse executeRequest() throws IOException {
-        Socket socket = new Socket(host, port);
+    public HttpClientResponse execute(final String HttpMethod) throws IOException {
+        Socket socket = new Socket(hostname, port);
 
-        socket.getOutputStream().write(("GET " + requestTarget + " HTTP/1.1\r\n" +
-                "Host: urlecho.appspot.com\r\n" +
-                "Connection: close\r\n" +
-                "\r\n").getBytes());
+        if (body != null) {
+            setRequestHeader("Content-length", String.valueOf(body.length()));
+        }
+        String headerString = headers.entrySet().stream()
+                .map(e -> e.getKey() + ":" + e.getValue())
+                .collect( Collectors.joining("\r\n"));
 
+
+
+        socket.getOutputStream().write((HttpMethod + " " + requestTarget + " HTTP/1.1\r\n" +
+                headerString +
+                "\r\r\n\r\n" + body).getBytes());
         socket.getOutputStream().flush();
 
+
         return new HttpClientResponse(socket.getInputStream());
+    }
+
+    public void setRequestHeader(String headerName, String headerValue) {
+        headers.put(headerName, headerValue);
+    }
 
 
-
+    public void setBody(String body) {
+        this.body = body;
     }
 }

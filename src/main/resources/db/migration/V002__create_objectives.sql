@@ -1,5 +1,5 @@
-create table if not exists Objectives(
-    ID SERIAL UNIQUE PRIMARY KEY,
+create table if not exists objectives(
+    ID SERIAL PRIMARY KEY,
     Name varchar(100),
     Description varchar(1000)
 )

@@ -6,8 +6,7 @@ import java.util.Map;
 
 public class EchoHttpController implements HttpController {
     @Override
-    public void handle(String requestAction, String requestPath, Map<String, String>
-            requestParameters, String body, OutputStream outputStream) throws IOException {
+    public void handle(String requestAction, String requestPath, Map<String, String> requestParameters, String body, OutputStream outputStream) throws IOException {
         if(requestAction.equals("POST")){
             requestParameters = HttpServer.parseRequestParameters(body);
         }

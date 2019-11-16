@@ -1,4 +1,4 @@
-create table if not exists OperationTroopers(
+create table if not exists operationtroopers(
     TrooperID int,
     FOREIGN KEY (TrooperID) REFERENCES Troopers (ID),
     ObjectiveID int,

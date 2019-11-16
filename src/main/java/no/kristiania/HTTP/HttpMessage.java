@@ -18,8 +18,7 @@ public class HttpMessage {
         headers= readHeaders(inputStream);
 
         if (getHeader("content-Length") != null) {
-            this.body = readBytes(inputStream,
-                    Integer.parseInt(getHeader("content-Length")));
+            this.body = readBytes(inputStream, Integer.parseInt(getHeader("content-Length")));
         }
 
 
@@ -57,8 +56,7 @@ public class HttpMessage {
     }
 
     public int getContentLenght() {
-        return
-                Integer.parseInt(getHeader("content-Length"));
+        return Integer.parseInt(getHeader("content-Length"));
     }
 
 
@@ -89,4 +87,5 @@ public class HttpMessage {
     public String getStartLine() {
         return startLine;
     }
+
 }

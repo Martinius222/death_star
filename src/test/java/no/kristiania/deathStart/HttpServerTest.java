@@ -1,4 +1,4 @@
-package no.kristiania.deathStart.Http;
+package no.kristiania.deathStart;
 
 
 import no.kristiania.HTTP.HttpClient;
@@ -13,51 +13,34 @@ import java.nio.file.Paths;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HttpServerTest {
-    private HttpServer server;
-
-    @BeforeEach
-    void setUp() throws IOException {
-        server = new HttpServer(0);
-        server.startServer();
+    @Test
+    void shouldExecuteHttprequest() throws IOException {
+        HttpClient client = new HttpClient("urlecho.appspot.com", 80, "/echo");
+        assertEquals(200, client.execute("GET").getStatusCode());
     }
 
     @Test
-    void shouldGet200StatusCode() throws IOException {
-        HttpClient client = new HttpClient("localhost", server.getPort(), "/echo");
-        HttpClientResponse response = client.executeRequest();
-        assertEquals(200, response.getStatusCode());
+    void shouldReadStatusCode() throws IOException {
+        HttpClient client = new HttpClient("urlecho.appspot.com", 80, "/echo?status=401");
+        assertEquals(401, client.execute("GET").getStatusCode());
     }
 
     @Test
-    void shouldRequestStatusCode() throws IOException {
-        HttpClient client = new HttpClient("localhost", server.getPort(), "/echo?status=401");
-        HttpClientResponse response = client.executeRequest();
-        assertEquals(401, response.getStatusCode());
+    void shouldReadHeaders() throws IOException {
+        HttpClient client = new HttpClient("urlecho.appspot.com", 80, "/echo?content-type=text/plain");
+        assertEquals("text/plain; charset=utf-8", client.execute("GET").getHeader("Content-type"));
     }
 
     @Test
-    void shouldReturnResponseHeader() throws IOException {
-        HttpClient client = new HttpClient("localhost", server.getPort(), "/echo?status=302&Location=http://www.example.com");
-        HttpClientResponse response = client.executeRequest();
-        assertEquals(302, response.getStatusCode());
-        assertEquals("http://www.example.com", response.getHeader("Location"));
+    void shouldReadContentLength() throws IOException {
+        HttpClient client = new HttpClient("urlecho.appspot.com", 80, "/echo?body=hello+world!");
+        assertEquals(12, client.execute("GET").getContentLenght());
     }
 
     @Test
-    void shouldReturnContent() throws IOException {
-        HttpClient client = new HttpClient("localhost", server.getPort(), "/echo?body=ALOHA!");
-        HttpClientResponse response = client.executeRequest();
-        assertEquals("6", response.getHeader("Content-Length"));
-        assertEquals("ALOHA!", response.getBody());
-    }
-    @Test
-    void shouldReturnFileFromDisk() throws IOException {
-        Files.writeString(Paths.get("target/testText.txt"), "This is the actual content of the awesome test text file!");
-        server.setFileLocation("target");
-        HttpClient httpClient = new HttpClient("localhost", server.getPort(), "/website/testText.txt");
-        HttpClientResponse response = httpClient.executeRequest();
-        assertEquals("This is the actual content of the awesome test text file!", response.getBody());
-
+    void shouldReadBody() throws IOException {
+        HttpClient client = new HttpClient("urlecho.appspot.com", 80, "/echo?body=hello+world!");
+        assertEquals("hello world!", client.execute("GET").getBody());
     }
 
 }

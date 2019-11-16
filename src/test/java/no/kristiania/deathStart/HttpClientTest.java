@@ -1,4 +1,4 @@
-package no.kristiania.deathStart.Http;
+package no.kristiania.deathStart;
 
 import no.kristiania.HTTP.HttpClient;
 import no.kristiania.HTTP.HttpClientResponse;
@@ -8,42 +8,37 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class HttpClientTest {
+class HttpClientTest {
 
+
+    @Test
+    void shouldExecuteHttprequest() throws IOException {
+        HttpClient client = new HttpClient("urlecho.appspot.com", 80, "/echo");
+        assertEquals(200, client.execute("GET").getStatusCode());
+    }
 
     @Test
     void shouldReadStatusCode() throws IOException {
-        HttpClient client = new HttpClient("urlecho.appspot.com", 80,"/echo?body=Houston%20we%20have%20a%20connection");
-        HttpClientResponse response = client.executeRequest();
-        assertEquals(200, response.getStatusCode());
+        HttpClient client = new HttpClient("urlecho.appspot.com", 80, "/echo?status=401");
+        assertEquals(401, client.execute("GET").getStatusCode());
     }
 
     @Test
-    void shouldReadFailureStatusCode() throws IOException {
-        HttpClient client = new HttpClient("urlecho.appspot.com", 80,"/echo?status=401");
-        HttpClientResponse response = client.executeRequest();
-        assertEquals(401, response.getStatusCode());
+    void shouldReadHeaders() throws IOException {
+        HttpClient client = new HttpClient("urlecho.appspot.com", 80, "/echo?content-type=text/plain");
+        assertEquals("text/plain; charset=utf-8", client.execute("GET").getHeader("Content-type"));
     }
 
     @Test
-    void shouldReturnResponseHeader() throws IOException {
-        HttpClient client = new HttpClient("urlecho.appspot.com", 80,"/echo?status=302&Location=http://www.example.com");
-        HttpClientResponse response = client.executeRequest();
-        assertEquals("http://www.example.com", response.getHeader("Location"));
+    void shouldReadContentLength() throws IOException {
+        HttpClient client = new HttpClient("urlecho.appspot.com", 80, "/echo?body=hello+world!");
+        assertEquals(12, client.execute("GET").getContentLenght());
     }
 
     @Test
-    void shouldReturnContentLength() throws IOException {
-        HttpClient client = new HttpClient("urlecho.appspot.com", 80,"/echo?status=401");
-        HttpClientResponse response = client.executeRequest();
-        assertEquals("4", response.getHeader("Content-Length"));
-    }
-
-    @Test
-    void shouldReturnContentBody() throws IOException {
-        HttpClient client = new HttpClient("urlecho.appspot.com", 80,"/echo?body=Houston%20we%20have%20a%20connection");
-        HttpClientResponse response = client.executeRequest();
-        assertEquals("Houston we have a connection", response.getBody());
+    void shouldReadBody() throws IOException {
+        HttpClient client = new HttpClient("urlecho.appspot.com", 80, "/echo?body=hello+world!");
+        assertEquals("hello world!", client.execute("GET").getBody());
     }
 
 }

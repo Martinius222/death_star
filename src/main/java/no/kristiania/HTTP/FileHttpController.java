@@ -11,12 +11,10 @@ public class FileHttpController implements HttpController {
 
     public FileHttpController(HttpServer httpServer) {
         this.httpServer = httpServer;
-
     }
 
     @Override
-    public void handle(String requestAction, String requestPath, Map<String, String>
-            requestParameters, String body, OutputStream outputStream) throws IOException {
+    public void handle(String requestAction, String requestPath, Map<String, String> requestParameters, String body, OutputStream outputStream) throws IOException {
         File file = new File(httpServer.fileLocation + requestPath);
         if (file.isDirectory()) {
             file = new File(file, "index.html");
@@ -34,6 +32,5 @@ public class FileHttpController implements HttpController {
                     "\r\n").getBytes());
 
         }
-
     }
 }
