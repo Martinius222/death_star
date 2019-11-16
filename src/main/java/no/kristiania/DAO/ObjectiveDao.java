@@ -15,21 +15,24 @@ public class ObjectiveDao extends AbstractDao<Objective> {
     @Override
     protected void insertMember(Objective operationObjective, PreparedStatement statement) throws SQLException {
         statement.setString(1, operationObjective.getName());
+        statement.setString(2, operationObjective.getDescription());
 
     }
 
     @Override
     protected Objective readObject(ResultSet resultSet) throws SQLException {
         Objective operationObjective = new Objective();
-        operationObjective.setName(resultSet.getString(2));
+
         operationObjective.setId(resultSet.getInt(1));
+        operationObjective.setName(resultSet.getString(2));
+        operationObjective.setDescription(resultSet.getString(3));
         return operationObjective;
     }
 
 
 
     public long insert(Objective operationObjective) throws SQLException{
-        long id = insert(operationObjective, "insert into operations (name, description) values (?,?)");
+        long id = insert(operationObjective, "insert into operations (name,description) values (?,?)");
         operationObjective.setId((int)id);
         return id;
     }
