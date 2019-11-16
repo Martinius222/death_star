@@ -38,7 +38,7 @@ public class ObjectiveDao extends AbstractDao<Objective> {
     }
 
     public List<Objective> listAll() throws SQLException {
-        return listAll("select * from operations");
+        return listAll("select * from objectives");
     }
     public Objective retrieve(long id) throws SQLException{
         try (Connection connection = dataSource.getConnection()) {

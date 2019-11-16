@@ -34,7 +34,7 @@
 <div>
     <a href=".">Return to front page</a>
 </div>
-<tb id="onjectiveList"></tb>
+<tb id="objectiveList"></tb>
 <iframe src="Lightsaber.mp3" frameborder="0" allow="autoplay"></iframe>
 
 <script>
@@ -42,7 +42,7 @@
         .then(function (response) {
             return response.text();
         }).then(function (text) {
-        text = "<tr> <th>Navn</th> <th>Email</th> </tr>" + text
+        text = "<tr> <th>Objective name</th> <th>Description</th> </tr>" + text
         document.getElementById("objectiveList").innerHTML = text;
     });
 </script>
