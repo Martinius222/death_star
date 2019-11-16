@@ -17,7 +17,7 @@ public class TrooperHttpController implements HttpController {
 
 
     public TrooperHttpController(TrooperDao trooperDao) {
-
+        this.trooperDao = trooperDao;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class TrooperHttpController implements HttpController {
                 requestParameters = HttpServer.parseRequestParameters(requestBody);
                 Trooper trooper = new Trooper();
                 trooper.setName(requestParameters.get("memberName"));
-                trooper.setEmail(requestParameters.get("mail"));
+                trooper.setEmail(requestParameters.get("email"));
                 trooperDao.insert(trooper);
                 return;
             }
