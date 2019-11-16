@@ -29,7 +29,7 @@ public class ObjectiveDao extends AbstractDao<Objective> {
 
 
     public long insert(Objective operationObjective) throws SQLException{
-        long id = insert(operationObjective, "insert into operations (operation_name) values (?)");
+        long id = insert(operationObjective, "insert into operations (name, description) values (?,?)");
         operationObjective.setId((int)id);
         return id;
     }
@@ -39,7 +39,7 @@ public class ObjectiveDao extends AbstractDao<Objective> {
     }
     public Objective retrieve(long id) throws SQLException{
         try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("select * from operations where id = ?")) {
+            try (PreparedStatement statement = connection.prepareStatement("select * from objectives where id = ?")) {
                 statement.setLong(1, id);
                 try (ResultSet resultSet = statement.executeQuery()) {
                     if(resultSet.next()) {

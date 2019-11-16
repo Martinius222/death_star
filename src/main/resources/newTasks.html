@@ -12,8 +12,9 @@
 <body>
 <h1>Add operation objective</h1>
 
-<form method="POST" action="/objectives">
-    <label>Objective name: <br> <input type="text" name="objective_name" /></label> <br>
+<form method="POST" action="/api/objectives">
+    <label>Objective name: <br> <input type="text" name="objectiveName" /></label> <br>
+    <label> Objective Description: <br> <input type="text" name="objectiveDescription"></label>
     <p>Set status:</p>
     <select name="objective_status" id="">
         <option value="">
@@ -33,7 +34,18 @@
 <div>
     <a href=".">Return to front page</a>
 </div>
+<tb id="onjectiveList"></tb>
 <iframe src="Lightsaber.mp3" frameborder="0" allow="autoplay"></iframe>
+
+<script>
+    fetch("/api/objectives")
+        .then(function (response) {
+            return response.text();
+        }).then(function (text) {
+        text = "<tr> <th>Navn</th> <th>Email</th> </tr>" + text
+        document.getElementById("objectiveList").innerHTML = text;
+    });
+</script>
 </body>
 
 </html>

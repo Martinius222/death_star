@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URLDecoder;
 import java.sql.SQLException;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -27,17 +28,26 @@ public class ObjectiveHttpController implements HttpController {
             if (requestAction.equalsIgnoreCase("POST")) {
                 requestParameters = HttpServer.parseRequestParameters(requestBody);
                 Objective objective = new Objective();
-                objective.setName(requestParameters.get("objectiveName"));
+                String name = URLDecoder.decode(requestParameters.get("objectiveName"));
+                String description = URLDecoder.decode(requestParameters.get("objectiveDescription"));
+
+                objective.setName(name);
+                objective.setDescription(description);
 
 
                 objectiveDao.insert(objective);
+
+                outputStream.write(("HTTP/1.1 302 Redirect\r\n" +
+                        "Location: http://localhost:8080\r\n" +
+                        "Connection: close\r\n" +
+                        "\r\n").getBytes());
                 return;
 
             }
 
-            String statusCode = requestParameters.getOrDefault("status", "200");
+            String statusCode = "200";
             String location = requestParameters.get("location");
-            String body = requestParameters.getOrDefault("body", getBody());
+            String body = getBody();
 
             outputStream.write(("HTTP/1.0 " + statusCode + " OK\r\n" +
 
@@ -60,7 +70,7 @@ public class ObjectiveHttpController implements HttpController {
 
     public String getBody() throws SQLException {
         String body = objectiveDao.listAll().stream()
-                .map(p -> String.format("<tr> <td>%s</td> <td>%s</td> </tr>", p.getId(), p.getName()))
+                .map(p -> String.format("<tr> <td>%s</td> <td>%s</td> </tr>", p.getId(), p.getName(), p.getDescription()))
                 .collect( Collectors.joining(""));
         return body;
     }
