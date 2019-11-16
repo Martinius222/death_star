@@ -13,10 +13,10 @@ import java.util.stream.Collectors;
 
 public class TrooperHttpController implements HttpController {
     private static final org.slf4j.Logger Logger = LoggerFactory.getLogger(TrooperHttpController.class);
-    private TrooperDao TrooperDao;
+    private TrooperDao trooperDao;
 
 
-    public TrooperHttpController(TrooperDao operationTrooperDao) {
+    public TrooperHttpController(TrooperDao trooperDao) {
 
     }
 
@@ -29,7 +29,7 @@ public class TrooperHttpController implements HttpController {
                 Trooper trooper = new Trooper();
                 trooper.setName(requestParameters.get("memberName"));
                 trooper.setEmail(requestParameters.get("mail"));
-                TrooperDao.insert(trooper);
+                trooperDao.insert(trooper);
                 return;
             }
 
@@ -55,7 +55,7 @@ public class TrooperHttpController implements HttpController {
     }
 
     public String getBody() throws SQLException {
-        String body = TrooperDao.listAll().stream()
+        String body = trooperDao.listAll().stream()
                 .map( p -> String.format( "<option value='%s'>%s</option>", p.getId(), p.getName() ) )
                 .collect( Collectors.joining( "" ) );
         return body;
