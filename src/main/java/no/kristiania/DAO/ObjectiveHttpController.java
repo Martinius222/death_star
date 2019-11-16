@@ -60,7 +60,7 @@ public class ObjectiveHttpController implements HttpController {
 
     public String getBody() throws SQLException {
         String body = objectiveDao.listAll().stream()
-                .map(p -> String.format("<option value='%s'>%s</option>", p.getId(), p.getName()))
+                .map(p -> String.format("<tr> <td>%s</td> <td>%s</td> </tr>", p.getId(), p.getName()))
                 .collect( Collectors.joining(""));
         return body;
     }

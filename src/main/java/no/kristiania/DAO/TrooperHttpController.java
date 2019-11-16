@@ -46,16 +46,17 @@ public class TrooperHttpController implements HttpController {
                 return;
             }
 
-            String statusCode = requestParameters.getOrDefault("status", "200");
+            String statusCode = "200";
             String location = requestParameters.get("location");
-            String body = requestParameters.getOrDefault("body", getBody());
+            String body = getBody();
+                    //requestParameters.getOrDefault("body", getBody());
 
-            outputStream.write(("HTTP/1.0 " + statusCode + " OK\r\n" +
-
+            outputStream.write(("HTTP/1.1 " + statusCode + " OK\r\n" +
                     "Content-length: " + body.length() + "\r\n" +
                     (location != null ? "Location: " + location + "\r\n" : "") +
                     "\r\n" +
                     body).getBytes());
+
         } catch (SQLException e) {
             Logger.error("While handling request{}", requestPath, e);
             String message = e.toString();
@@ -69,8 +70,8 @@ public class TrooperHttpController implements HttpController {
 
     public String getBody() throws SQLException {
         String body = trooperDao.listAll().stream()
-                .map( p -> String.format( "<option value='%s'>%s</option>", p.getId(), p.getName() ) )
-                .collect( Collectors.joining( "" ) );
+                .map(p -> String.format("<tr> <td>%s</td> <td>%s</td> </tr>", p.getName(), p.getEmail()))
+                .collect( Collectors.joining(""));
         return body;
     }
 }
