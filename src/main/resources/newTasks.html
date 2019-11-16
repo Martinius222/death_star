@@ -12,17 +12,18 @@
 <body>
 <h1>Add operation objective</h1>
 
-<form method="POST" action="/objectives">
-    <label>Objective name: <br> <input type="text" name="objective_name" /></label> <br>
+<form method="POST" action="/api/objectives">
+    <label>Objective name: <br> <input type="text" name="name" /></label> <br>
+    <label>Objective description: <br> <input type="text" name="description" /> </label> <br>
     <p>Set status:</p>
-    <select name="objective_status" id="">
-        <option value="">
+    <select name="status" id="">
+        <option value="To be done">
             To be done
         </option>
-        <option value="">
+        <option value="Ongoing">
             Ongoing
         </option>
-        <option value="">
+        <option value="Done">
             Done
         </option>
     </select>

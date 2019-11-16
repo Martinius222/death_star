@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URLDecoder;
 import java.sql.SQLException;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -19,32 +20,41 @@ public class ObjectiveHttpController implements HttpController {
 
         this.objectiveDao = objectiveDao;
     }
-
     @Override
-    public void handle(String requestAction, String requestPath, Map<String,
-            String> requestParameters, String requestBody, OutputStream outputStream) throws IOException {
+    public void handle(String requestAction, String requestPath, Map<String, String> requestParameters,
+                       String requestBody, OutputStream outputStream) throws IOException {
         try {
             if (requestAction.equalsIgnoreCase("POST")) {
+
                 requestParameters = HttpServer.parseRequestParameters(requestBody);
                 Objective objective = new Objective();
-                objective.setName(requestParameters.get("objectiveName"));
 
+                String name = URLDecoder.decode(requestParameters.get("name"));
+                String description = URLDecoder.decode(requestParameters.get("description"));
+
+                objective.setName(name);
+                objective.setDescription(description);
 
                 objectiveDao.insert(objective);
-                return;
 
+                //Respond
+                outputStream.write(("HTTP/1.1 302 Redirect\r\n" +
+                        "Location: http://localhost:8080\r\n" +
+                        "Connection: close\r\n" +
+                        "\r\n").getBytes());
+                return;
             }
 
-            String statusCode = requestParameters.getOrDefault("status", "200");
+            String statusCode = "200";
             String location = requestParameters.get("location");
-            String body = requestParameters.getOrDefault("body", getBody());
+            String body = getBody();
 
-            outputStream.write(("HTTP/1.0 " + statusCode + " OK\r\n" +
-
+            outputStream.write(("HTTP/1.1 " + statusCode + " OK\r\n" +
                     "Content-length: " + body.length() + "\r\n" +
                     (location != null ? "Location: " + location + "\r\n" : "") +
                     "\r\n" +
                     body).getBytes());
+
         } catch (SQLException e) {
             Logger.error("While handling request{}", requestPath, e);
             String message = e.toString();
@@ -56,11 +66,9 @@ public class ObjectiveHttpController implements HttpController {
 
     }
 
-
-
     public String getBody() throws SQLException {
         String body = objectiveDao.listAll().stream()
-                .map(p -> String.format("<tr> <td>%s</td> <td>%s</td> </tr>", p.getId(), p.getName()))
+                .map(p -> String.format("<tr> <td>%s</td> <td>%s</td> </tr>", p.getName(), p.getDescription()))
                 .collect( Collectors.joining(""));
         return body;
     }
