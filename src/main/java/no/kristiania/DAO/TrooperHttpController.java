@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URLDecoder;
 import java.sql.SQLException;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -25,11 +26,23 @@ public class TrooperHttpController implements HttpController {
                        String requestBody, OutputStream outputStream) throws IOException {
         try {
             if (requestAction.equalsIgnoreCase("POST")) {
+
                 requestParameters = HttpServer.parseRequestParameters(requestBody);
                 Trooper trooper = new Trooper();
-                trooper.setName(requestParameters.get("memberName"));
-                trooper.setEmail(requestParameters.get("email"));
+
+                String name = URLDecoder.decode(requestParameters.get("memberName"));
+                String email = URLDecoder.decode(requestParameters.get("email"));
+
+                trooper.setName(name);
+                trooper.setEmail(email);
+
                 trooperDao.insert(trooper);
+
+                //Respond
+                outputStream.write(("HTTP/1.1 302 Redirect\r\n" +
+                        "Location: http://localhost:8080\r\n" +
+                        "Connection: close\r\n" +
+                        "\r\n").getBytes());
                 return;
             }
 

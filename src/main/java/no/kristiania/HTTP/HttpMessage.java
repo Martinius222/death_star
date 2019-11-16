@@ -63,7 +63,7 @@ public class HttpMessage {
     public static String readLine(InputStream inputStream) throws IOException {
         StringBuilder line = new StringBuilder();
         int c;
-        while ((c = inputStream.read()) != 1) {
+        while ((c = inputStream.read()) != -1) {
             if (c == '\r') {
                 inputStream.read();
                 break;
