@@ -1,7 +1,7 @@
 package no.kristiania.deathStart;
 
-import no.kristiania.DAO.OperationTrooper;
-import no.kristiania.DAO.OperationTrooperDao;
+import no.kristiania.DAO.Trooper;
+import no.kristiania.DAO.TrooperDao;
 import org.assertj.core.api.AssertionsForClassTypes;
 import org.flywaydb.core.Flyway;
 import org.h2.jdbcx.JdbcDataSource;
@@ -14,14 +14,14 @@ import java.util.Random;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
-class OperationTrooperTest {
+class TrooperTest {
 
     private JdbcDataSource dataSource;
 
-    public static OperationTrooper sampleTrooper() {
-        OperationTrooper trooper = new OperationTrooper();
+    public static Trooper sampleTrooper() {
+        Trooper trooper = new Trooper();
         trooper.setName(pickOne(new String[]{"Darth Vader", "Jar-Jar Binks", "General Grievous"}));
-        trooper.setEmail("testing.if@email.shows");
+        trooper.setEmail("testing_if@email.shows");
         return trooper;
     }
     private static String pickOne(String[] alternatives){
@@ -51,8 +51,8 @@ class OperationTrooperTest {
 
     @Test
     void shouldFindtrooperinDB() throws SQLException {
-        OperationTrooper trooper = sampleTrooper();
-        OperationTrooperDao dao = new OperationTrooperDao(dataSource);
+        Trooper trooper = sampleTrooper();
+        TrooperDao dao = new TrooperDao(dataSource);
 
 
         dao.insert(trooper);
@@ -64,8 +64,8 @@ class OperationTrooperTest {
 
     @Test
     void shouldSaveAllProductFields() throws SQLException {
-        OperationTrooperDao dao = new OperationTrooperDao(dataSource);
-        OperationTrooper trooper = new OperationTrooper();
+        TrooperDao dao = new TrooperDao(dataSource);
+        Trooper trooper = new Trooper();
         long id = dao.insert(trooper);
 
 

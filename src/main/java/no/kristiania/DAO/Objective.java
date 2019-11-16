@@ -2,14 +2,14 @@ package no.kristiania.DAO;
 
 import java.util.Objects;
 
-public class OperationObjective {
+public class Objective {
     private String name;
     private String description;
     private long id;
 
-    public OperationObjective (){}
+    public Objective (){}
 
-    public OperationObjective(String name, String description, Integer id) {
+    public Objective(String name, String description, Integer id) {
         this.name = name;
         this.description = description;
         this.id = id;
@@ -43,9 +43,9 @@ public class OperationObjective {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        OperationObjective operationObjective = (OperationObjective) o;
-        return id == operationObjective.id &&
-                Objects.equals(name, operationObjective.name);
+        Objective objective = (Objective) o;
+        return id == objective.id &&
+                Objects.equals(name, objective.name);
     }
 
     @Override
@@ -55,10 +55,10 @@ public class OperationObjective {
 
     @Override
     public String toString() {
-        return "OperationObjective{" +
-                "OperationObjective Name='" + name + '\'' +
-                "OperationObjective Description='" + description + '\'' +
-                "OperationObjective ID=" + id +
+        return "Objective{" +
+                "Objective Name='" + name + '\'' +
+                "Objective Description='" + description + '\'' +
+                "Objective ID=" + id +
                 '}';
     }
 }

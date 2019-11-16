@@ -10,8 +10,17 @@
 <body>
     <h1>Add operation member</h1>
 
-    <form method="POST" action="/members">
-        <label>Member name: <input type="text" name="full_name" /></label>
+    <form method="POST" action="/api/Troopers">
+        <label>Member name:<br><input type="text" name="memberName" /></label> <br>
+        <label>Member email:<br> <input type="text" name="email"/></label>
+        <br>
+        <p>Select Role:</p>
+        <select name="member_role" id="">
+            <option value="">Sith Lord</option>
+            <option value="">Sith</option>
+            <option value="">Trooper</option>
+        </select>
+        <br>
         <button>Add</button>
     </form>
 

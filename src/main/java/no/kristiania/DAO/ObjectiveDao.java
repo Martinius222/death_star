@@ -7,20 +7,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class OperationObjectiveDao extends AbstractDao<OperationObjective> {
-    public OperationObjectiveDao(DataSource dataSource) {
+public class ObjectiveDao extends AbstractDao<Objective> {
+    public ObjectiveDao(DataSource dataSource) {
         super(dataSource);
     }
 
     @Override
-    protected void insertMember(OperationObjective operationObjective, PreparedStatement statement) throws SQLException {
+    protected void insertMember(Objective operationObjective, PreparedStatement statement) throws SQLException {
         statement.setString(1, operationObjective.getName());
 
     }
 
     @Override
-    protected OperationObjective readObject(ResultSet resultSet) throws SQLException {
-        OperationObjective operationObjective = new OperationObjective();
+    protected Objective readObject(ResultSet resultSet) throws SQLException {
+        Objective operationObjective = new Objective();
         operationObjective.setName(resultSet.getString(2));
         operationObjective.setId(resultSet.getInt(1));
         return operationObjective;
@@ -28,16 +28,16 @@ public class OperationObjectiveDao extends AbstractDao<OperationObjective> {
 
 
 
-    public long insert(OperationObjective operationObjective) throws SQLException{
+    public long insert(Objective operationObjective) throws SQLException{
         long id = insert(operationObjective, "insert into operations (operation_name) values (?)");
         operationObjective.setId((int)id);
         return id;
     }
 
-    public List<OperationObjective> listAll() throws SQLException {
+    public List<Objective> listAll() throws SQLException {
         return listAll("select * from operations");
     }
-    public OperationObjective retrieve(long id) throws SQLException{
+    public Objective retrieve(long id) throws SQLException{
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement("select * from operations where id = ?")) {
                 statement.setLong(1, id);

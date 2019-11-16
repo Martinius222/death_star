@@ -11,23 +11,23 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
 
-public class OperationTrooperDao extends AbstractDao<OperationTrooper> {
+public class TrooperDao extends AbstractDao<Trooper> {
 
-    public OperationTrooperDao(DataSource dataSource) {
+    public TrooperDao(DataSource dataSource) {
         super(dataSource);
     }
 
 
     @Override
-    protected void insertMember(OperationTrooper member, PreparedStatement statement) throws SQLException {
+    protected void insertMember(Trooper member, PreparedStatement statement) throws SQLException {
         statement.setString(1, member.getName());
         statement.setString(2, member.getEmail());
 
     }
 
     @Override
-    protected OperationTrooper readObject(ResultSet resultSet) throws SQLException {
-        OperationTrooper member = new OperationTrooper();
+    protected Trooper readObject(ResultSet resultSet) throws SQLException {
+        Trooper member = new Trooper();
 
         member.setId(resultSet.getInt(1));
         member.setName(resultSet.getString(2));
@@ -36,19 +36,19 @@ public class OperationTrooperDao extends AbstractDao<OperationTrooper> {
     }
 
 
-    public long insert(OperationTrooper OperationTrooper) throws SQLException {
-        long id = insert(OperationTrooper, "insert into OperationTroopers (name,email) values (?,?)");
-        OperationTrooper.setId(id);
+    public long insert(Trooper Trooper) throws SQLException {
+        long id = insert(Trooper, "insert into Troopers (name,email) values (?,?)");
+        Trooper.setId(id);
         return id;
     }
 
-    public List<OperationTrooper> listAll() throws SQLException {
-        return listAll("select * from OperationTroopers");
+    public List<Trooper> listAll() throws SQLException {
+        return listAll("select * from Troopers");
     }
 
-    public OperationTrooper retrieve(long id) throws SQLException{
+    public Trooper retrieve(long id) throws SQLException{
         try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("select * from OperationTroopers where id = ?")) {
+            try (PreparedStatement statement = connection.prepareStatement("select * from Troopers where id = ?")) {
                 statement.setLong(1, id);
                 try (ResultSet resultSet = statement.executeQuery()) {
                     if(resultSet.next()) {

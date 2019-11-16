@@ -6,6 +6,8 @@ body{
     background-repeat: no-repeat;
     text-align: center;
     overflow: hidden;
+    color: yellow;
+    font-size: 1.3rem;
 }
 
 h1 {
@@ -19,6 +21,17 @@ a{
     font-size: 1.3rem;
     color: yellow;
 }
+
+select {
+    background-color: yellow;
+    height: 2rem;
+    width: 21rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+    border-radius: 10px 10px 0 0;
+    outline: none;
+}
+
 
 iframe {
     display: none;
@@ -35,6 +48,7 @@ input {
     outline: none;
     font-size: 1.3rem;
     line-height: 3.2rem;
+    margin-bottom: 0.5rem;
 }
 
 input:focus {
@@ -52,6 +66,7 @@ button {
     border-radius: 30px 5px 30px 5px;
     color: #fff;
     font-size: 1.3rem;
+    margin-top: 0.2rem;
 }
 
 button:hover {
@@ -67,7 +82,7 @@ button:hover {
     margin-left: 37.5%;
     transform: rotateX(70deg);
     overflow: hidden;
-    
+
 }
 
 #txt-inner{

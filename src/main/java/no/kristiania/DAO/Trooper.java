@@ -2,7 +2,7 @@ package no.kristiania.DAO;
 
 import java.util.Objects;
 
-public class OperationTrooper {
+public class Trooper {
 
 
     private long id;
@@ -35,12 +35,12 @@ public class OperationTrooper {
     }
 
 
-    public OperationTrooper() {
+    public Trooper() {
 
 
     }
 
-    public OperationTrooper(String name, String email) {
+    public Trooper(String name, String email) {
         this.name = name;
         this.email = email;
 
@@ -51,7 +51,7 @@ public class OperationTrooper {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        OperationTrooper trooper = (OperationTrooper) o;
+        Trooper trooper = (Trooper) o;
         return id == trooper.id &&
                 Objects.equals(name, trooper.name) &&
                 Objects.equals(email, trooper.email);
@@ -64,7 +64,7 @@ public class OperationTrooper {
 
     @Override
     public String toString() {
-        return "OperationTrooper{" +
+        return "Trooper{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +

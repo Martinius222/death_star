@@ -1,8 +1,8 @@
 
 package no.kristiania.HTTP;
 
-
-import no.kristiania.DAO.OperationTrooperHttpController;
+;
+import no.kristiania.DAO.TrooperHttpController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -107,7 +107,7 @@ public class    HttpServer {
         return fileLocation;
     }
 
-    public void addController(String path, OperationTrooperHttpController controller) {
+    public void addController(String path, TrooperHttpController controller) {
         controllers.put(path, controller);
     }
 }

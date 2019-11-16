@@ -1,7 +1,7 @@
 package no.kristiania.HTTP;
 
-import no.kristiania.DAO.OperationTrooper;
-import no.kristiania.DAO.OperationTrooperDao;
+import no.kristiania.DAO.Trooper;
+import no.kristiania.DAO.TrooperDao;
 import org.flywaydb.core.Flyway;
 import org.postgresql.ds.PGSimpleDataSource;
 
@@ -23,26 +23,26 @@ public class ProjectMain {
         dataSource.setUser((properties.getProperty("dataSource.username")));
         dataSource.setPassword(properties.getProperty("dataSource.password"));
         Flyway.configure().dataSource(dataSource).load().migrate();
-        OperationTrooperDao operationTrooperDao = new OperationTrooperDao(dataSource);
+        TrooperDao trooperDao = new TrooperDao(dataSource);
 
         BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
         Scanner scan = new Scanner(System.in);
-        OperationTrooper operationTrooper = new OperationTrooper();
+        Trooper trooper = new Trooper();
 
         System.out.println("What would you like to do?");
-        System.out.println("A: List all operationTroopers \nB: Add new operationTrooper");
+        System.out.println("A: List all Troopers \nB: Add new trooper");
         String choose = scan.next();
         if(choose.equals("A") || choose.equals("a")) {
-            System.out.println("Current operationTroopers " + operationTrooperDao.listAll());
+            System.out.println("Current operationTroopers " + trooperDao.listAll());
         } else if (choose.equals("B") || choose.equals("b")) {
-            System.out.println("Please type the name of the new operationTrooper");
-            operationTrooper.setName(console.readLine());
-            System.out.println("Please type the e-mail for " + operationTrooper.getName());
-            operationTrooper.setEmail(console.readLine());
+            System.out.println("Please type the name of the new trooper");
+            trooper.setName(console.readLine());
+            System.out.println("Please type the e-mail for " + trooper.getName());
+            trooper.setEmail(console.readLine());
 
-            operationTrooperDao.insert(operationTrooper);
+            trooperDao.insert(trooper);
 
-            System.out.println("OperationTrooper added");
+            System.out.println("Trooper added");
         } else {
             System.out.println("That's not an option");
         }

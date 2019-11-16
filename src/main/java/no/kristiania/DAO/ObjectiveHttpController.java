@@ -2,7 +2,6 @@ package no.kristiania.DAO;
 
 import no.kristiania.HTTP.HttpController;
 import no.kristiania.HTTP.HttpServer;
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
@@ -11,26 +10,29 @@ import java.sql.SQLException;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class OperationTrooperHttpController implements HttpController {
-    private static final org.slf4j.Logger Logger = LoggerFactory.getLogger(OperationTrooperHttpController.class);
-    private OperationTrooperDao TrooperDao;
+public class ObjectiveHttpController implements HttpController {
+    private ObjectiveDao objectiveDao;
+    private static final org.slf4j.Logger Logger =
+            LoggerFactory.getLogger(TrooperHttpController.class);
 
+    public ObjectiveHttpController(ObjectiveDao objectiveDao) {
 
-    public OperationTrooperHttpController(OperationTrooperDao operationTrooperDao) {
-
+        this.objectiveDao = objectiveDao;
     }
 
     @Override
-    public void handle(String requestAction, String requestPath, Map<String, String> requestParameters,
-                       String requestBody, OutputStream outputStream) throws IOException {
+    public void handle(String requestAction, String requestPath, Map<String,
+            String> requestParameters, String requestBody, OutputStream outputStream) throws IOException {
         try {
             if (requestAction.equalsIgnoreCase("POST")) {
                 requestParameters = HttpServer.parseRequestParameters(requestBody);
-                OperationTrooper trooper = new OperationTrooper();
-                trooper.setName(requestParameters.get("memberName"));
-                trooper.setEmail(requestParameters.get("mail"));
-                TrooperDao.insert(trooper);
+                Objective objective = new Objective();
+                objective.setName(requestParameters.get("objectiveName"));
+
+
+                objectiveDao.insert(objective);
                 return;
+
             }
 
             String statusCode = requestParameters.getOrDefault("status", "200");
@@ -54,10 +56,12 @@ public class OperationTrooperHttpController implements HttpController {
 
     }
 
+
+
     public String getBody() throws SQLException {
-        String body = TrooperDao.listAll().stream()
-                .map( p -> String.format( "<option value='%s'>%s</option>", p.getId(), p.getName() ) )
-                .collect( Collectors.joining( "" ) );
+        String body = objectiveDao.listAll().stream()
+                .map(p -> String.format("<option value='%s'>%s</option>", p.getId(), p.getName()))
+                .collect( Collectors.joining(""));
         return body;
     }
 }

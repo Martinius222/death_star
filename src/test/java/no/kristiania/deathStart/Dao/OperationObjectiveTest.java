@@ -1,6 +1,6 @@
 package no.kristiania.deathStart.Dao;
 
-import no.kristiania.DAO.OperationObjective;
+import no.kristiania.DAO.Objective;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -9,10 +9,10 @@ public class OperationObjectiveTest {
 
     @Test
     void shouldReturnObjectiveToString() {
-        OperationObjective objective = new OperationObjective
+        Objective objective = new Objective
                 ("Kill John", "He's on the left", 2);
-        assertEquals("OperationObjective{OperationObjective Name='Kill John'" +
-                "OperationObjective Description='He's on the left'OperationObjective ID=2}", objective.toString());
+        assertEquals("Objective{Objective Name='Kill John'" +
+                "Objective Description='He's on the left'Objective ID=2}", objective.toString());
     }
 
 }

@@ -10,17 +10,30 @@
 </head>
 
 <body>
-    <h1>Add operation objective</h1>
+<h1>Add operation objective</h1>
 
-    <form method="POST" action="/objectives">
-        <label>Objective name: <input type="text" name="objective_name" /></label>
-        <button>Add</button>
-    </form>
+<form method="POST" action="/objectives">
+    <label>Objective name: <br> <input type="text" name="objective_name" /></label> <br>
+    <p>Set status:</p>
+    <select name="objective_status" id="">
+        <option value="">
+            To be done
+        </option>
+        <option value="">
+            Ongoing
+        </option>
+        <option value="">
+            Done
+        </option>
+    </select>
+    <br>
+    <button>Add</button>
+</form>
 
-    <div>
-        <a href=".">Return to front page</a>
-    </div>
-    <iframe src="Lightsaber.mp3" frameborder="0" allow="autoplay"></iframe>
+<div>
+    <a href=".">Return to front page</a>
+</div>
+<iframe src="Lightsaber.mp3" frameborder="0" allow="autoplay"></iframe>
 </body>
 
 </html>
