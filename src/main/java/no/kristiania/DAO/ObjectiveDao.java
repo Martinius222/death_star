@@ -32,7 +32,7 @@ public class ObjectiveDao extends AbstractDao<Objective> {
 
 
     public long insert(Objective operationObjective) throws SQLException{
-        long id = insert(operationObjective, "insert into objectives (name,description) values (?,?)");
+        long id = insert(operationObjective, "insert into objectives (name,description,status) values (?,?,?)");
         operationObjective.setId((int)id);
         return id;
     }

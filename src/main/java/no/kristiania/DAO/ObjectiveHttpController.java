@@ -30,9 +30,11 @@ public class ObjectiveHttpController implements HttpController {
                 Objective objective = new Objective();
                 String name = URLDecoder.decode(requestParameters.get("objectiveName"));
                 String description = URLDecoder.decode(requestParameters.get("objectiveDescription"));
+                String status = URLDecoder.decode(requestParameters.get("objectiveStatus"));
 
                 objective.setName(name);
                 objective.setDescription(description);
+                objective.setStatus(status);
 
 
                 objectiveDao.insert(objective);
@@ -70,7 +72,7 @@ public class ObjectiveHttpController implements HttpController {
 
     public String getBody() throws SQLException {
         String body = objectiveDao.listAll().stream()
-                .map(p -> String.format("<tr> <td>%s</td> <td>%s</td> </tr>", p.getName(), p.getDescription()))
+                .map(p -> String.format("<tr> <td>%s</td> <td>%s</td> <td>%s</td> </tr>", p.getName(), p.getDescription(), p.getStatus()))
                 .collect( Collectors.joining(""));
         return body;
     }

@@ -16,14 +16,14 @@
     <label>Objective name: <br> <input type="text" name="objectiveName" /></label> <br>
     <label> Objective Description: <br> <input type="text" name="objectiveDescription"></label>
     <p>Set status:</p>
-    <select name="objective_status" id="">
-        <option value="">
+    <select name="objectiveStatus" id="">
+        <option value="To be done">
             To be done
         </option>
-        <option value="">
+        <option value="Ongoing">
             Ongoing
         </option>
-        <option value="">
+        <option value="Done">
             Done
         </option>
     </select>
@@ -45,7 +45,7 @@
         .then(function (response) {
             return response.text();
         }).then(function (text) {
-        text = "<tr> <th>Objective name</th> <th>Description</th> </tr>" + text
+        text = "<tr> <th>Objective name</th> <th>Description</th> <th>Status</th> </tr>" + text
         document.getElementById("objectiveList").innerHTML = text;
     });
 </script>
