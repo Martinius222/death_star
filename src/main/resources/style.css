@@ -32,6 +32,10 @@ select {
     outline: none;
 }
 
+#objectiveList {
+    width: 80%;
+}
+
 table {
     margin: auto;
 }

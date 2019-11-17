@@ -10,7 +10,7 @@ public class OperationObjectiveTest {
     @Test
     void shouldReturnObjectiveToString() {
         Objective objective = new Objective
-                ("Kill John", "He's on the left", 2);
+                ("Find Luke Skywalker", "He's on the run, find him now", 2, "Ongoing");
         assertEquals("Objective{Objective Name='Kill John'" +
                 "Objective Description='He's on the left'Objective ID=2}", objective.toString());
     }
