@@ -1,10 +1,7 @@
 package no.kristiania.HTTP;
 
 
-import no.kristiania.DAO.ObjectiveDao;
-import no.kristiania.DAO.ObjectiveHttpController;
-import no.kristiania.DAO.TrooperDao;
-import no.kristiania.DAO.TrooperHttpController;
+import no.kristiania.DAO.*;
 import org.flywaydb.core.Flyway;
 import org.postgresql.ds.PGSimpleDataSource;
 
@@ -32,6 +29,7 @@ public class ManagerServer {
         server.setFileLocation("src/main/resources");
         server.addController("/api/troopers", new TrooperHttpController(new TrooperDao(dataSource)));
         server.addController("/api/objectives", new ObjectiveHttpController(new ObjectiveDao(dataSource)));
+        server.addController("/api/status", new ObjectiveStatusHttpController(new ObjectiveStatusDao(dataSource)));
 
         server.start();
     }
