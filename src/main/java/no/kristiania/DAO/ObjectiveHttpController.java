@@ -38,7 +38,7 @@ public class ObjectiveHttpController implements HttpController {
                 objectiveDao.insert(objective);
 
                 outputStream.write(("HTTP/1.1 302 Redirect\r\n" +
-                        "Location: http://localhost:8080\r\n" +
+                        "Location: http://localhost:8080/newTasks.html\r\n" +
                         "Connection: close\r\n" +
                         "\r\n").getBytes());
                 return;

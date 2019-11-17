@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ObjectiveTrooperDao {
+public class ObjectiveTrooperDao extends AbstractDao<ObjectiveTrooper> {
     public ObjectiveTrooperDao(DataSource dataSource) {
         super(dataSource);
     }
@@ -57,7 +57,5 @@ public class ObjectiveTrooperDao {
     }
 
 
-
-}
 
 }

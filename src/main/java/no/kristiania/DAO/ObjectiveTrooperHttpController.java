@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class ObjectiveTrooperHttpController /*extends HttpController*/ {
+public class ObjectiveTrooperHttpController implements HttpController {
     private static final org.slf4j.Logger Logger = LoggerFactory.getLogger(TrooperHttpController.class);
     private ObjectiveTrooperDao trooperDao;
 
@@ -73,6 +73,4 @@ public class ObjectiveTrooperHttpController /*extends HttpController*/ {
                 .collect( Collectors.joining(""));
         return body;
     }
-}
-
 }
