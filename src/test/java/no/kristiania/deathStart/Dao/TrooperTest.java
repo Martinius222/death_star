@@ -24,18 +24,18 @@ class TrooperTest {
         trooper.setEmail("testing_if@email.shows");
         return trooper;
     }
+
     private static String pickOne(String[] alternatives){
         Random random = new Random();
-
         return alternatives[random.nextInt(alternatives.length)];
     }
-
 
     @BeforeEach
     void testDataSource() {
         dataSource = createDataSource();
         Flyway.configure().dataSource(dataSource).load().migrate();
     }
+
     @AfterEach
     void restartDataSource() {
         Flyway.configure().dataSource(dataSource).load().clean();
@@ -54,22 +54,16 @@ class TrooperTest {
         Trooper trooper = sampleTrooper();
         TrooperDao dao = new TrooperDao(dataSource);
 
-
         dao.insert(trooper);
         System.out.println(dao.listAll());
         assertThat(dao.listAll()).contains(trooper);
     }
-
-
 
     @Test
     void shouldSaveAllProductFields() throws SQLException {
         TrooperDao dao = new TrooperDao(dataSource);
         Trooper trooper = new Trooper();
         long id = dao.insert(trooper);
-
-
         AssertionsForClassTypes.assertThat(dao.retrieve(id)).isEqualToComparingFieldByField(trooper);
-
     }
 }
